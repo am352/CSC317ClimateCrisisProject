@@ -15,7 +15,8 @@ nav {
     padding: 1rem 2rem;
     background-color: rgb(25, 122, 249);
     outline: 0.05rem solid;
-
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 nav ul {
@@ -34,6 +35,10 @@ nav a:hover {
     text-decoration: underline;
 }
 
+nav a:active {
+    color: yellow;
+}
+
 body {
     background-image: linear-gradient(to bottom, rgb(102, 161, 255), rgb(158, 207, 255))
 }
@@ -50,6 +55,8 @@ main {
     flex-direction: column;
     gap: 2rem;
     width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 details {
@@ -58,8 +65,24 @@ details {
     outline: .05rem double black;
     overflow: hidden;
     color: white;
-    background-color:  rgb(44, 185, 228);
+    background-color: rgb(44, 185, 228);
     transition: all 0.2s ease;
+}
+
+details:hover {
+    background-color: rgb(58, 196, 255);
+}
+
+details > .fact-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+details[open] > .fact-content {
+    max-height: 300px;
+    opacity: 1;
 }
 
 summary {
@@ -85,13 +108,54 @@ details[open] summary::after {
     transform: rotate(180deg);
 }
 
-details p {
-    margin-top: 0.2rem;
-    margin-bottom: 0.2rem;
+.fact-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.fact-content p {
+    flex: 1;
     line-height: 1.5;
-    color: #ffffff;
-    border-top: 1px solid #000000;
-    padding-top: 0.5rem;
+}
+
+.fact-content img {
+    width: 180px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+details:not([open]) .fact-content img {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+details[open] .fact-content img {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fact-content p::before {
+    content: "• ";
+    font-weight: bold;
+}
+
+::selection {
+    background: rgb(255, 255, 100);
+    color: black;
+}
+
+nav li:first-child a {
+    text-decoration: underline rgba(255, 179, 0, 0.694);
+    text-decoration-thickness: 3px;
+}
+
+nav li:last-child a {
+    font-style: italic;
 }
 
 footer {
@@ -101,6 +165,22 @@ footer {
     background-color: rgb(58, 196, 255);
     padding: 1rem 0.2rem;
     outline: .05rem solid rgb(255, 255, 255);
-
 }
 
+@media (max-width: 700px) {
+    .fact-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .fact-content img {
+        width: 90%;
+        max-width: 300px;
+        margin-top: 1rem;
+    }
+
+    .fact-content p {
+        text-align: left;
+    }
+}
