@@ -81,9 +81,10 @@ details > .fact-content {
 }
 
 details[open] > .fact-content {
-    max-height: 300px;
+    max-height: 1000px;
     opacity: 1;
 }
+
 
 summary {
     cursor: pointer;
@@ -111,7 +112,7 @@ details[open] summary::after {
 .fact-content {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 1.5rem;
     margin-top: 0.5rem;
 }
@@ -119,6 +120,8 @@ details[open] summary::after {
 .fact-content p {
     flex: 1;
     line-height: 1.5;
+    display: flex;
+    align-items: center;
 }
 
 .fact-content img {
@@ -126,6 +129,7 @@ details[open] summary::after {
     height: auto;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 1rem;
 }
 
 details:not([open]) .fact-content img {
@@ -140,8 +144,11 @@ details[open] .fact-content img {
 }
 
 .fact-content p::before {
-    content: "• ";
+    content: "•";
     font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
 }
 
 ::selection {
@@ -168,19 +175,42 @@ footer {
 }
 
 @media (max-width: 700px) {
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    nav h1 {
+        text-align: left;
+        flex: 1;
+        font-size: 1.4rem;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.3rem;
+    }
+
     .fact-content {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding-bottom: 2rem;
+    }
+
+    .fact-content p {
+        text-align: left;
+        display: block;
+        margin-bottom: 1rem;
     }
 
     .fact-content img {
         width: 90%;
         max-width: 300px;
-        margin-top: 1rem;
-    }
-
-    .fact-content p {
-        text-align: left;
+        margin-bottom: 2rem;
     }
 }
